@@ -12,22 +12,22 @@
 
 // Normalization parameters (from training data)
 const float SENSOR_MEAN[NUM_FEATURES] = {
-    -1.125685f, -2.306040f, 3.295036f, -0.000627f, -0.008586f, -0.031883f
+    0.066785f, -0.230932f, -0.508558f, -0.724521f, 1.679773f, 0.282399f
 };
 
 const float SENSOR_STD[NUM_FEATURES] = {
-    7.436702f, 3.355736f, 3.385428f, 0.445237f, 0.271540f, 0.503735f
+    0.613383f, 0.318781f, 0.426112f, 35.380800f, 15.206224f, 11.514720f
 };
 
 // Quantization parameters (from TFLite model)
-const float INPUT_SCALE = 0.12539911f;
-const int8_t INPUT_ZERO_POINT = 8;
+const float INPUT_SCALE = 0.14997722f;
+const int8_t INPUT_ZERO_POINT = 7;
 const float OUTPUT_SCALE = 0.00390625f;
 const int8_t OUTPUT_ZERO_POINT = -128;
 
 // Activity labels
 const char* ACTIVITY_LABELS[NUM_CLASSES] = {
-    "Eating", "Nail_Biting", "Face_Touch", "Smoking", "Staying_Still"
+    "nail_biting", "knuckles_cracking", "hand_tapping", "sitting", "standing"
 };
 
 // Sensor column order (for reference)
