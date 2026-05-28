@@ -16,11 +16,6 @@
 const float SENSOR_MEAN[8] = {0.196717f, 0.093949f, -0.451440f, -0.930565f, 1.677287f, 0.128417f, 0.996089f, 29.968271f};
 const float SENSOR_STD[8] = {0.595617f, 0.485070f, 0.393003f, 42.673264f, 20.773724f, 19.017673f, 0.083101f, 41.498489f};
 
-const float INPUT_SCALE = 0.1423172503709793f;
-const int8_t INPUT_ZERO_POINT = -42;
-const float OUTPUT_SCALE = 0.00390625f;
-const int8_t OUTPUT_ZERO_POINT = -128;
-
 const char* ACTIVITY_LABELS[10] = {
     "ear_rubbing",
     "forehead_rubbing",
