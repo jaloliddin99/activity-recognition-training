@@ -1,4 +1,27 @@
+# Dataset and generated arrays
 data/raw/*.csv
-.DS_Store
-.ipynb_checkpoints/
 data/processed/*.npy
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local environments and configuration
+.venv/
+venv/
+env/
+.env
+
+# Temporary experiment output
+logs/
+tmp/
+temp/
