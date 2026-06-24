@@ -18,7 +18,26 @@ Download the dataset manually and place the CSV here:
 stresssense/data/raw/StresSense.csv
 ```
 
-## Environment
+## Jupyter notebooks
+
+Start Jupyter from the `stresssense` directory:
+
+```bash
+conda activate tinyml2
+cd /Users/jaloliddinabdullaev/Projects/activity-recognition-training/stresssense
+jupyter notebook
+```
+
+Run the notebooks in this order:
+
+1. `notebooks/01_preprocessing.ipynb`
+2. `notebooks/02_training.ipynb`
+3. `notebooks/03_quantization.ipynb`
+
+The notebooks call the Python pipeline files in this directory and display the
+saved metrics and plots.
+
+## Command-line alternative
 
 Use the existing TensorFlow environment:
 
@@ -27,7 +46,7 @@ conda activate tinyml2
 cd stresssense
 ```
 
-## 1. Inspect the dataset
+### 1. Inspect the dataset
 
 ```bash
 python inspect_dataset.py
@@ -36,7 +55,7 @@ python inspect_dataset.py
 This prints the detected columns, activity labels, user IDs, missing values,
 and users that contain every activity.
 
-## 2. Preprocess
+### 2. Preprocess
 
 Deployment-compatible accelerometer and gyroscope input:
 
@@ -63,7 +82,7 @@ Important options:
 Normalization statistics are calculated from training users only. Windows
 never cross user or activity boundaries.
 
-## 3. Train
+### 3. Train
 
 Training starts only when this command is run:
 
@@ -82,7 +101,7 @@ results/training_history.png
 results/confusion_matrix.png
 ```
 
-## 4. Quantize
+### 4. Quantize
 
 ```bash
 python quantize.py
