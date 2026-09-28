@@ -1,1 +1,35 @@
+# Dataset and generated arrays
 data/raw/*.csv
+data/processed/*.npy
+stresssense/data/raw/*
+!stresssense/data/raw/.gitkeep
+stresssense/data/processed/*
+!stresssense/data/processed/.gitkeep
+stresssense/models/*
+!stresssense/models/.gitkeep
+stresssense/results/*
+!stresssense/results/.gitkeep
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local environments and configuration
+.venv/
+venv/
+env/
+.env
+
+# Temporary experiment output
+logs/
+tmp/
+temp/
