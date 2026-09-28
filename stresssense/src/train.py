@@ -5,7 +5,7 @@ import pickle
 from pathlib import Path
 
 os.environ.setdefault(
-    "MPLCONFIGDIR", str(Path(__file__).resolve().parent / "tmp/matplotlib")
+    "MPLCONFIGDIR", str(Path(__file__).resolve().parent.parent / "tmp/matplotlib")
 )
 import matplotlib
 matplotlib.use("Agg")

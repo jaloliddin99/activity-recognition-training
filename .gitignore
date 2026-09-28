@@ -1,6 +1,6 @@
 # Dataset and generated arrays
-data/raw/*.csv
-data/processed/*.npy
+Adam-Sense/data/raw/*.csv
+Adam-Sense/data/processed/*.npy
 stresssense/data/raw/*
 !stresssense/data/raw/.gitkeep
 stresssense/data/processed/*
@@ -13,8 +13,8 @@ stresssense/results/*
 # macOS
 .DS_Store
 
-# Personal IDE workspace settings
-.idea/workspace.xml
+# IDE settings
+.idea/
 
 # Jupyter
 .ipynb_checkpoints/

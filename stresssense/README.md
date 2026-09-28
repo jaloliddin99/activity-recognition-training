@@ -1,7 +1,41 @@
 # StresSense Training Pipeline
 
-This branch contains an isolated pipeline for the public StresSense dataset.
-It does not modify the ADAM-sense notebooks or models.
+This directory contains the training pipeline for the public StresSense dataset.
+
+## Project structure
+
+```text
+stresssense/
+├── README.md
+├── src/
+│   ├── config.py            # Paths, sensor columns, and default settings
+│   ├── data_utils.py        # Dataset loading, features, and window creation
+│   ├── inspect_dataset.py   # Dataset and participant summaries
+│   ├── preprocess.py        # Cross-user splits and normalization
+│   ├── train.py             # CNN training, evaluation, and plots
+│   └── quantize.py          # TFLite conversion and evaluation
+├── notebooks/
+│   ├── 01_preprocessing.ipynb
+│   ├── 02_training.ipynb
+│   └── 03_quantization.ipynb
+├── data/
+│   ├── raw/                # Downloaded StresSense.csv
+│   └── processed/          # Generated arrays and preprocessing metadata
+├── models/                 # Trained Keras and TFLite models
+└── results/                # Metrics, classification report, and plots
+```
+
+The notebooks import the implementation from `src/`; keep both folders when
+sharing the notebook workflow. Paths in `src/config.py` resolve relative to
+the `stresssense/` directory, so outputs are not written inside `src/`.
+
+## Environment
+
+The existing development environment is named `tinyml2` and uses Python 3.10
+with TensorFlow 2.13. The pipeline also uses NumPy, pandas, scikit-learn,
+Matplotlib, and seaborn. Jupyter Notebook and IPython are needed for the
+notebook workflow. If your environment has a different name, replace
+`tinyml2` in the commands below.
 
 ## Dataset
 
@@ -20,11 +54,11 @@ stresssense/data/raw/StresSense.csv
 
 ## Jupyter notebooks
 
-Start Jupyter from the `stresssense` directory:
+From the repository root, start Jupyter in the `stresssense` directory:
 
 ```bash
 conda activate tinyml2
-cd /Users/jaloliddinabdullaev/Projects/activity-recognition-training/stresssense
+cd stresssense
 jupyter notebook
 ```
 
@@ -34,12 +68,19 @@ Run the notebooks in this order:
 2. `notebooks/02_training.ipynb`
 3. `notebooks/03_quantization.ipynb`
 
-The notebooks call the Python pipeline files in this directory and display the
-saved metrics and plots.
+The notebooks call the Python pipeline files in `src/` and display the
+saved metrics and plots. Data, models, and results remain in their existing
+folders under `stresssense/`. Restart the notebook kernel if it was open
+before the scripts were moved into `src/`.
+
+The first notebook calls `inspect_dataset.py` and `preprocess.py`, the second
+calls `train.py`, and the third calls `quantize.py`. Running these notebooks
+executes the pipeline; it does not merely display the saved outputs.
 
 ## Command-line alternative
 
-Use the existing TensorFlow environment:
+From the repository root, activate the environment and enter `stresssense/`.
+If you are already in that directory, skip the `cd` command:
 
 ```bash
 conda activate tinyml2
@@ -49,7 +90,7 @@ cd stresssense
 ### 1. Inspect the dataset
 
 ```bash
-python inspect_dataset.py
+python src/inspect_dataset.py
 ```
 
 This prints the detected columns, activity labels, user IDs, missing values,
@@ -60,13 +101,13 @@ and users that contain every activity.
 Deployment-compatible accelerometer and gyroscope input:
 
 ```bash
-python preprocess.py --sensor-profile ag --test-user auto
+python src/preprocess.py --sensor-profile ag --test-user auto
 ```
 
 Full StresSense accelerometer, gyroscope, and magnetometer input:
 
 ```bash
-python preprocess.py --sensor-profile agm --test-user auto
+python src/preprocess.py --sensor-profile agm --test-user auto
 ```
 
 Important options:
@@ -79,6 +120,10 @@ Important options:
 --add-magnitude       add sensor magnitude features
 ```
 
+Magnitude features are enabled by default. Use `--no-add-magnitude` to
+disable them. The default `ag` profile therefore produces eight features:
+six sensor axes and two magnitudes.
+
 Normalization statistics are calculated from training users only. Windows
 never cross user or activity boundaries.
 
@@ -87,7 +132,7 @@ never cross user or activity boundaries.
 Training starts only when this command is run:
 
 ```bash
-python train.py
+python src/train.py
 ```
 
 The model is a quantization-friendly 1D CNN without BatchNorm. Outputs:
@@ -104,7 +149,7 @@ results/confusion_matrix.png
 ### 4. Quantize
 
 ```bash
-python quantize.py
+python src/quantize.py
 ```
 
 This creates and evaluates:
@@ -112,7 +157,21 @@ This creates and evaluates:
 - Full INT8 model for TensorFlow Lite Micro
 - Hybrid INT8-weight model with float input/output
 
-The quantization report is saved to `results/quantization_metrics.json`.
+The converted models are saved to `models/stresssense_full_int8.tflite` and
+`models/stresssense_hybrid.tflite`. The quantization report is saved to
+`results/quantization_metrics.json`.
+
+## Generated files and version control
+
+The repository's `.gitignore` excludes the raw dataset and generated files
+inside `data/processed/`, `models/`, and `results/`. The `.gitkeep` files retain
+these directories in Git. After cloning, download the dataset and run
+preprocessing, training, and quantization in order to regenerate the outputs.
+
+IDE settings (`.idea/`), Python caches (`__pycache__/`), notebook checkpoints
+(`.ipynb_checkpoints/`), macOS metadata (`.DS_Store`), and temporary files
+(`tmp/`) are also ignored and are not needed in a submission archive. Include
+models and results separately if they are required submission deliverables.
 
 ## Fair evaluation
 

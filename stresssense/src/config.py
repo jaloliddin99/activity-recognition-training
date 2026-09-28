@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parent.parent
 RAW_DATA_PATH = ROOT / "data/raw/StresSense.csv"
 PROCESSED_DIR = ROOT / "data/processed"
 MODELS_DIR = ROOT / "models"
