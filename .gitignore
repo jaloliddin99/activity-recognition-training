@@ -13,6 +13,9 @@ stresssense/results/*
 # macOS
 .DS_Store
 
+# Personal IDE workspace settings
+.idea/workspace.xml
+
 # Jupyter
 .ipynb_checkpoints/
 *.nbconvert.ipynb
